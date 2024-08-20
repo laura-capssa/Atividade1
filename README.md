@@ -116,77 +116,105 @@
 6. **Fazer o versionamento da atividade no GitHub.**
 7. **Fazer a documentação explicando o processo de instalação do Linux.**
 
-## Documentação para Criação da Parte do Linux
+# Documentação para Criação da Parte do Linux
 
-### Configuração do NFS
+## Configuração do NFS
+**Torna-se o superusuário (root)**
+```bash 
+sudo su
+```
 
-1. sudo su
-2. yum update -y
-3. yum install nfs-utils -y
-4. mkdir -p /mnt/nfs
-5. ls
-6. cd /mnt/nfs
-7. ls
-8. ssh root@189.26.166.249
-9. root@189.26.166.249's password: 
-10. cd /mnt/nfs
-11. ls
+**Atualiza todos os pacotes para a versão mais recente**
+```bash 
+yum update -y
+```
 
-# Tutorial de Configuração e Monitoramento do Servidor Apache
+**Instala o pacote nfs-utils**
+```bash 
+yum install nfs-utils -y
+```
+
+**Cria o diretório /mnt/nfs, incluindo diretórios pai, se necessário**
+```bash 
+mkdir -p /mnt/nfs
+```
+
+**Lista o conteúdo do diretório atual**
+```bash 
+ls
+```
+
+**Muda para o diretório /mnt/nfs**
+```bash 
+cd /mnt/nfs
+```
+
+**Lista o conteúdo do diretório atual**
+```bash 
+ls
+```
+
+**Conecta ao servidor remoto via SSH**
+```bash 
+ssh root@189.26.166.249
+```
+
+**Solicita a senha do usuário root para o servidor remoto**
+```bash 
+root@189.26.166.249's password:
+```
+
+**Muda para o diretório /mnt/nfs no servidor remoto**
+```bash 
+cd /mnt/nfs
+```
+
+**Lista o conteúdo do diretório /mnt/nfs no servidor remoto**
+```bash 
+ls
+```
 
 ## Criação de um Diretório com o Meu Nome
+
+**Cria o diretório /mnt/nfs/laura**
+```bash
 mkdir /mnt/nfs/laura
+```
+
+**Lista o conteúdo do diretório /mnt/nfs**
+```bash
 ls
+```
 
 ## Subir um apache no servidor
+**Instala o servidor Apache**
+```bash
 yum install httpd -y
+```
+
+**Inicia o serviço Apache**
+```bash
 systemctl start httpd
+```
+
+**Habilita o Apache para iniciar automaticamente na inicialização**
+```bash
 systemctl enable httpd
+```
+
+**Verifica o status do serviço Apache**
+```bash
 systemctl status httpd
+```
 
-##Criação do script de monitoramento
+## Criação do script de monitoramento
+**Abre o editor Vim para criar o script de monitoramento**
+```bash
 vim /usr/local/bin/check_apache_status.sh
+```
 
-##Conteúdo do script
-#!/bin/bash
-
-# Configurações
-LOG_DIR="/mnt/nfs/laura"
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-SERVICE="httpd" 
-STATUS=$(systemctl is-active httpd)
-
-# Mensagens personalizadas
-ONLINE_MESSAGE="Apache está online."
-OFFLINE_MESSAGE="Apache está offline."
-
-# Verificar o status do serviço e gerar os logs
-#!/bin/bash
-
-# Configurações
-LOG_DIR="/mnt/nfs/laura"
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-SERVICE="httpd" 
-STATUS=$(systemctl is-active httpd)
-
-# Mensagens personalizadas
-ONLINE_MESSAGE="Apache está online."
-OFFLINE_MESSAGE="Apache está offline."
-
-# Verificar o status do serviço e gerar os logs
-#!/bin/bash
-
-# Configurações
-LOG_DIR="/mnt/nfs/laura"
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-SERVICE="httpd" 
-STATUS=$(systemctl is-active httpd)
-
-# Mensagens personalizadas
-ONLINE_MESSAGE="Apache está online."
-OFFLINE_MESSAGE="Apache está offline."
-
-# Verificar o status do serviço e gerar os logs
+### Conteúdo do script
+```bash
 #!/bin/bash
 
 # Configurações
@@ -211,25 +239,76 @@ else
     echo "Status: OFFLINE" >> "$LOG_DIR/apache_offline.log"
     echo "Mensagem: $OFFLINE_MESSAGE" >> "$LOG_DIR/apache_offline.log"
 fi
+```
 
-##Automatização do script a cada 5 minutos
-1. crontab -e
-2. */5 * * * * /usr/local/bin/check_apache_status.sh
-3. crontab -l
-4. cd /mnt/nfs
-5. ls
-6. cd /usr/local/bin
-7. ls -l
+### Automatização do script a cada 5 minutos
+**Abre o crontab para edição**
+```bash 
+crontab -e
+```
+
+**Define o cron job para executar o script a cada 5 minutos**
+```bash 
+*/5 * * * * /usr/local/bin/check_apache_status.sh
+```
+
+**Lista os cron jobs atuais**
+```bash 
+crontab -l
+```
+
+**Muda para o diretório /mnt/nfs**
+```bash 
+cd /mnt/nfs
+```
+
+**Lista o conteúdo do diretório /mnt/nfs**
+```bash 
+ls
+```
+
+**Muda para o diretório /usr/local/bin**
+```bash 
+cd /usr/local/bin
+```
+
+**Lista o conteúdo do diretório /usr/local/bin com detalhes**
+```bash 
+ls -l
+```
    
-   remover arquivos desnecessários
-9. rm /usr/local/bin/check_apache_status.shenyesoap
-10. rm /usr/local/bin/check_apache_status.shesoo
-11. rm /usr/local/bin/check_apache_status.shy
+ ###  remover arquivos desnecessários
+**Remove o arquivo check_apache_status.shenyesoap**
+```bash 
+rm /usr/local/bin/check_apache_status.shenyesoap
+```
 
-  Verificar logs
-12. cd /mnt/nfs/laura
-13. ls -l
-14. cat apache_online.log
+**Remove o arquivo check_apache_status.shesoo**
+```bash 
+rm /usr/local/bin/check_apache_status.shesoo
+```
+
+**Remove o arquivo check_apache_status.shy**
+```bash 
+rm /usr/local/bin/check_apache_status.shy
+```
+
+ ### Verificar logs
+
+**Muda para o diretório /mnt/nfs/laura**
+  ```bash 
+cd /mnt/nfs/laura
+```
+
+**Lista o conteúdo do diretório /mnt/nfs/laura com detalhes**
+```bash 
+ls -l
+```
+
+**Exibe o conteúdo do log apache_online.log**
+```bash 
+cat apache_online.log
+```
 
 
 
