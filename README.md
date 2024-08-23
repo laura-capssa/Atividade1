@@ -310,6 +310,11 @@ ls -l
 cat apache_online.log
 ```
 
+**Exibe o conteúdo do log apache_offline.log**
+```bash 
+cat apache_offline.log
+```
+
 
 
 
