@@ -133,10 +133,20 @@ yum update -y
 ```bash 
 yum install nfs-utils -y
 ```
+```bash
+sudo apt-get update
+```
+```bash
+sudo apt-get install nfs-common
+```
+
 
 **Cria o diretório /mnt/nfs, incluindo diretórios pai, se necessário**
 ```bash 
 mkdir -p /mnt/nfs
+```
+```bash
+sudo mount <44.205.230.250>:/mnt/nfs
 ```
 
 **Lista o conteúdo do diretório atual**
@@ -150,26 +160,6 @@ cd /mnt/nfs
 ```
 
 **Lista o conteúdo do diretório atual**
-```bash 
-ls
-```
-
-**Conecta ao servidor remoto via SSH**
-```bash 
-ssh root@189.26.166.249
-```
-
-**Solicita a senha do usuário root para o servidor remoto**
-```bash 
-root@189.26.166.249's password:
-```
-
-**Muda para o diretório /mnt/nfs no servidor remoto**
-```bash 
-cd /mnt/nfs
-```
-
-**Lista o conteúdo do diretório /mnt/nfs no servidor remoto**
 ```bash 
 ls
 ```
@@ -309,11 +299,21 @@ ls -l
 ```bash 
 cat apache_online.log
 ```
+**Parar o apache**
+```bash 
+systemctl stop httpd
+```
 
 **Exibe o conteúdo do log apache_offline.log**
 ```bash 
 cat apache_offline.log
 ```
+
+**Para ligar novamente o apache**
+```bash
+sudo systemctl start httpd
+```
+
 
 
 
